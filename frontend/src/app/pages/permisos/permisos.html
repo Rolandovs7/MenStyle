@@ -1,0 +1,86 @@
+<div class="pagina">
+
+  <header class="encabezado">
+    <div>
+      <h1>Gestión de Permisos</h1>
+      <p>Asigna los permisos según el rol del usuario.</p>
+    </div>
+  </header>
+
+  @if (mensaje) {
+    <div class="mensaje">
+      {{ mensaje }}
+    </div>
+  }
+
+  @if (error) {
+    <div class="error">
+      {{ error }}
+    </div>
+  }
+
+  <div class="panel">
+
+    <div class="seleccion-rol">
+      <label for="rol">Rol</label>
+
+      <select
+        id="rol"
+        [(ngModel)]="rolSeleccionado"
+        (change)="cambiarRol()">
+
+        <option value="administrador">Administrador</option>
+        <option value="cliente">Cliente</option>
+
+      </select>
+    </div>
+
+    @if (cargando) {
+
+      <div class="cargando">
+        Cargando permisos...
+      </div>
+
+    } @else {
+
+      <div class="lista-permisos">
+
+        <h2>Permisos disponibles</h2>
+
+        @for (permiso of permisos; track permiso.id) {
+
+          <div class="permiso">
+
+            <label>
+              <input
+                type="checkbox"
+                [checked]="tienePermiso(permiso.id)"
+                (change)="cambiarPermiso(permiso.id)"
+              />
+
+              <div>
+                <strong>{{ permiso.descripcion }}</strong>
+                <small>{{ permiso.nombre }}</small>
+              </div>
+            </label>
+
+          </div>
+
+        }
+
+      </div>
+
+      <button
+        class="btn-guardar"
+        [disabled]="guardando"
+        (click)="guardar()">
+
+        {{ guardando ? 'Guardando...' : 'Guardar permisos' }}
+
+      </button>
+
+    }
+
+  </div>
+
+</div>

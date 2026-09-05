@@ -1,0 +1,117 @@
+.pagina {
+  min-height: 100vh;
+  padding: 30px;
+  background: #f5f6f8;
+}
+
+.encabezado {
+  margin-bottom: 25px;
+}
+
+.encabezado h1 {
+  margin: 0;
+  font-size: 28px;
+}
+
+.encabezado p {
+  margin-top: 8px;
+  color: #666;
+}
+
+.panel {
+  max-width: 700px;
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.seleccion-rol {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.seleccion-rol label {
+  font-weight: bold;
+}
+
+.seleccion-rol select {
+  padding: 9px 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+}
+
+.lista-permisos h2 {
+  margin-bottom: 15px;
+}
+
+.permiso {
+  padding: 14px;
+  border: 1px solid #e1e1e1;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.permiso label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.permiso input {
+  width: 18px;
+  height: 18px;
+}
+
+.permiso strong {
+  display: block;
+}
+
+.permiso small {
+  display: block;
+  margin-top: 3px;
+  color: #777;
+}
+
+.btn-guardar {
+  margin-top: 20px;
+  padding: 11px 20px;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  font-weight: bold;
+  background: #222;
+  color: white;
+}
+
+.btn-guardar:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.mensaje {
+  max-width: 700px;
+  margin-bottom: 15px;
+  padding: 12px;
+  border-radius: 7px;
+  background: #dff5e3;
+  color: #216b2a;
+}
+
+.error {
+  max-width: 700px;
+  margin-bottom: 15px;
+  padding: 12px;
+  border-radius: 7px;
+  background: #ffe1e1;
+  color: #a12626;
+}
+
+.cargando {
+  padding: 20px 0;
+  color: #666;
+}

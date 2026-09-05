@@ -1,0 +1,72 @@
+import { Injectable, inject } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Observable, tap } from 'rxjs';
+
+export interface Usuario {
+  id: number;
+  nombre: string;
+  apellido: string;
+  email: string;
+  activo: boolean;
+  rol: string;
+}
+
+export interface Token {
+  access_token: string;
+  token_type: string;
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthService {
+
+  private http = inject(HttpClient);
+
+  private apiUrl = 'http://127.0.0.1:8000/api/auth';
+
+  login(email: string, password: string): Observable<Token> {
+    const body = new HttpParams()
+      .set('username', email)
+      .set('password', password);
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
+
+    return this.http.post<Token>(
+      `${this.apiUrl}/login`,
+      body.toString(),
+      { headers }
+    ).pipe(
+      tap(response => {
+        localStorage.setItem('access_token', response.access_token);
+      })
+    );
+  }
+
+  obtenerUsuarioActual(): Observable<Usuario> {
+    const token = this.getToken();
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+
+    return this.http.get<Usuario>(
+      `${this.apiUrl}/me`,
+      { headers }
+    );
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem('access_token');
+  }
+
+  estaAutenticado(): boolean {
+    return !!this.getToken();
+  }
+
+  logout(): void {
+    localStorage.removeItem('access_token');
+  }
+}

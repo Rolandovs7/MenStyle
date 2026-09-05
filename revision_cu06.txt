@@ -1,0 +1,100 @@
+===== ESTRUCTURA =====
+backend/app/models/product_variant.py
+backend/app/models/category.py
+backend/app/models/color.py
+backend/app/models/return_model.py
+backend/app/models/notification.py
+backend/app/models/collection.py
+backend/app/models/product.py
+backend/app/models/user.py
+backend/app/models/cart_detail.py
+backend/app/models/order_detail.py
+backend/app/models/cart.py
+backend/app/models/branch.py
+backend/app/models/__init__.py
+backend/app/models/order.py
+backend/app/models/season.py
+backend/app/models/payment.py
+backend/app/models/size.py
+backend/app/models/inventory.py
+backend/app/models/reservation_detail.py
+backend/app/models/supplier.py
+backend/app/models/reservation.py
+backend/app/schemas/category.py
+backend/app/schemas/notification.py
+backend/app/schemas/product.py
+backend/app/schemas/return_schema.py
+backend/app/schemas/cart.py
+backend/app/schemas/users.py
+backend/app/schemas/auth.py
+backend/app/schemas/__init__.py
+backend/app/schemas/order.py
+backend/app/schemas/payment.py
+backend/app/schemas/inventory.py
+backend/app/schemas/reservation.py
+backend/app/api/routes/returns.py
+backend/app/api/routes/reservations.py
+backend/app/api/routes/categories.py
+backend/app/api/routes/products.py
+backend/app/api/routes/cart.py
+backend/app/api/routes/users.py
+backend/app/api/routes/orders.py
+backend/app/api/routes/auth.py
+backend/app/api/routes/notifications.py
+backend/app/api/routes/__init__.py
+backend/app/api/routes/inventory.py
+backend/app/api/routes/payments.py
+
+===== ROLES Y PERMISOS =====
+backend/app/schemas/users.py:10:    rol: str
+backend/app/schemas/users.py:20:    rol: str
+backend/app/schemas/auth.py:27:    rol: str
+backend/app/core/dependencies.py:56:def requerir_rol(rol_requerido: str):
+backend/app/core/dependencies.py:57:    """Dependencia para requerir un rol específico"""
+backend/app/core/dependencies.py:58:    def _requerir_rol(usuario_actual: Usuario = Depends(obtener_usuario_actual)):
+backend/app/core/dependencies.py:59:        if usuario_actual.rol != rol_requerido:
+backend/app/core/dependencies.py:62:                detail="No tienes permisos para realizar esta acción"
+backend/app/core/dependencies.py:65:    return _requerir_rol
+backend/app/migrations/versions/62060ea69d63_agregar_rol_a_usuarios.py:1:"""Agregar rol a usuarios
+backend/app/migrations/versions/62060ea69d63_agregar_rol_a_usuarios.py:24:    op.add_column('usuarios', sa.Column('rol', sa.String(length=30), nullable=False))
+backend/app/migrations/versions/62060ea69d63_agregar_rol_a_usuarios.py:31:    op.drop_column('usuarios', 'rol')
+backend/app/models/user.py:45:    rol: Mapped[str] = mapped_column(
+backend/app/api/routes/returns.py:5:from app.core.dependencies import obtener_db, obtener_usuario_actual, requerir_rol
+backend/app/api/routes/returns.py:75:    _usuario_admin=Depends(requerir_rol("administrador"))
+backend/app/api/routes/reservations.py:5:from app.core.dependencies import obtener_db, obtener_usuario_actual, requerir_rol
+backend/app/api/routes/reservations.py:93:    _usuario_admin=Depends(requerir_rol("administrador"))
+backend/app/api/routes/categories.py:5:from app.core.dependencies import obtener_db, requerir_rol
+backend/app/api/routes/categories.py:55:    _usuario_admin=Depends(requerir_rol("administrador"))
+backend/app/api/routes/categories.py:71:    _usuario_admin=Depends(requerir_rol("administrador"))
+backend/app/api/routes/categories.py:87:    _usuario_admin=Depends(requerir_rol("administrador"))
+backend/app/api/routes/products.py:5:from app.core.dependencies import obtener_db, requerir_rol
+backend/app/api/routes/products.py:49:    _usuario_admin=Depends(requerir_rol("administrador"))
+backend/app/api/routes/products.py:63:    _usuario_admin=Depends(requerir_rol("administrador"))
+backend/app/api/routes/products.py:76:    _usuario_admin=Depends(requerir_rol("administrador"))
+backend/app/api/routes/users.py:4:from app.core.dependencies import obtener_db, requerir_rol
+backend/app/api/routes/users.py:17:    usuario_actual: Usuario = Depends(requerir_rol("administrador"))
+backend/app/api/routes/users.py:26:    usuario_actual: Usuario = Depends(requerir_rol("administrador"))
+backend/app/api/routes/users.py:46:    usuario_actual: Usuario = Depends(requerir_rol("administrador"))
+backend/app/api/routes/users.py:69:    if datos.rol not in ["cliente", "administrador"]:
+backend/app/api/routes/users.py:72:            detail="Rol inválido"
+backend/app/api/routes/users.py:79:    usuario.rol = datos.rol
+backend/app/api/routes/users.py:91:    usuario_actual: Usuario = Depends(requerir_rol("administrador"))
+backend/app/api/routes/orders.py:5:from app.core.dependencies import obtener_db, obtener_usuario_actual, requerir_rol
+backend/app/api/routes/orders.py:93:    _usuario_admin=Depends(requerir_rol("administrador"))
+backend/app/api/routes/auth.py:8:    requerir_rol
+backend/app/api/routes/auth.py:53:        rol="cliente",
+backend/app/api/routes/auth.py:98:        "rol": usuario.rol
+backend/app/api/routes/auth.py:121:        requerir_rol("administrador")
+backend/app/api/routes/inventory.py:5:from app.core.dependencies import obtener_db, requerir_rol
+backend/app/api/routes/inventory.py:57:    _usuario_admin=Depends(requerir_rol("administrador"))
+backend/app/api/routes/inventory.py:73:    _usuario_admin=Depends(requerir_rol("administrador"))
+backend/app/api/routes/inventory.py:89:    _usuario_admin=Depends(requerir_rol("administrador"))
+backend/app/services/reservation_service.py:148:        db.rollback()
+backend/app/services/reservation_service.py:194:        db.rollback()
+backend/app/services/reservation_service.py:297:        db.rollback()
+backend/app/services/order_service.py:232:        db.rollback()
+backend/app/services/order_service.py:327:        db.rollback()
+backend/app/services/order_service.py:437:        db.rollback()
+backend/app/services/return_service.py:129:        db.rollback()
+backend/app/services/return_service.py:212:        db.rollback()
+backend/app/services/payment_service.py:86:        db.rollback()

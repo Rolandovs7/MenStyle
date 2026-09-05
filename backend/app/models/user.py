@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timezone
 
 from sqlalchemy import String, Boolean, DateTime
 from sqlalchemy.orm import Mapped, mapped_column
@@ -42,8 +42,14 @@ class Usuario(Base):
         nullable=False
     )
 
+    rol: Mapped[str] = mapped_column(
+        String(30),
+        default="cliente",
+        nullable=False
+    )
+
     fecha_creacion: Mapped[datetime] = mapped_column(
         DateTime,
-        default=datetime.utcnow,
+        default=lambda: datetime.now(timezone.utc),
         nullable=False
     )
