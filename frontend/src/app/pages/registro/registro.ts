@@ -42,7 +42,7 @@ export class Registro {
     };
 
     this.http.post(
-      'http://127.0.0.1:8000/api/auth/registro',
+      'https://menstyle-hms1.onrender.com/api/auth/registro',
       datos
     ).subscribe({
       next: () => {

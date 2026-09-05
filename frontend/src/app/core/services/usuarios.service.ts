@@ -24,7 +24,7 @@ export interface UsuarioActualizar {
 })
 export class UsuariosService {
   private http = inject(HttpClient);
-  private apiUrl = 'http://127.0.0.1:8000/api/usuarios';
+  private apiUrl = 'https://menstyle-hms1.onrender.com/api/usuarios';
 
   private headers(): HttpHeaders {
     return new HttpHeaders({
